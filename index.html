@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maktab Oshxonasi Menyusi</title>
+    <style>
+        :root { --primary: #f59e0b; --dark: #451a03; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #fffbeb; margin: 0; padding: 20px; }
+        .menu-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--dark); border-bottom: 3px dashed var(--primary); padding-bottom: 10px; }
+        .meal-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #fef3c7; }
+        .meal-info h3 { margin: 0; color: #92400e; }
+        .meal-info p { margin: 5px 0 0; color: #b45309; font-size: 0.9rem; }
+        .price { background: var(--primary); color: white; padding: 5px 12px; border-radius: 50px; font-weight: bold; }
+        .day-selector { text-align: center; margin-bottom: 20px; }
+        select { padding: 10px; border-radius: 10px; border: 2px solid var(--primary); font-size: 1rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="menu-container">
+    <h1>🍴 Bugungi Menyu</h1>
+    
+    <div class="day-selector">
+        <label>Kunni tanlang: </label>
+        <select id="daySelect" onchange="updateMenu()">
+            <option value="dushanba">Dushanba</option>
+            <option value="seshanba">Seshanba</option>
+            <option value="chorshanba">Chorshanba</option>
+        </select>
+    </div>
+
+    <div id="menuList">
+        </div>
+</div>
+
+<script>
+    const menuData = {
+        "dushanba": [
+            { name: "Osh (Palov)", desc: "Go'shtli va mazali", price: "15 000 so'm" },
+            { name: "Meva sharbati", desc: "Tabiiy olma sharbati", price: "3 000 so'm" }
+        ],
+        "seshanba": [
+            { name: "Mastava", desc: "Issiq va to'yimli", price: "12 000 so'm" },
+            { name: "Somsa", desc: "Go'shtli qatlama", price: "6 000 so'm" }
+        ],
+        "chorshanba": [
+            { name: "Sho'rva", desc: "Tovuq go'shtli", price: "13 000 so'm" },
+            { name: "Choy", desc: "Ko'k yoki qora", price: "1 000 so'm" }
+        ]
+    };
+
+    function updateMenu() {
+        const day = document.getElementById('daySelect').value;
+        const list = document.getElementById('menuList');
+        list.innerHTML = "";
+
+        menuData[day].forEach(item => {
+            list.innerHTML += `
+                <div class="meal-item">
+                    <div class="meal-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                    </div>
+                    <div class="price">${item.price}</div>
+                </div>
+            `;
+        });
+    }
+    window.onload = updateMenu;
+</script>
+</body>
+</html>
